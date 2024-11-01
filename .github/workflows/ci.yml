@@ -28,6 +28,9 @@ jobs:
 
       - name: Set up Docker Compose
         run: docker compose up -d
+
+      - name: Run migrations
+        run: npm run migration:run
           
 
       - name: Run E2E Tests
