@@ -20,6 +20,7 @@ import { DynamicRateLimit } from '../rate-limit/dynamic-rate-limit.service';
 import { UploadService } from './upload.service';
 import { Request } from 'express';
 import { NoAgentsAvailableError } from './errors';
+import { ApiOperation, ApiParam, ApiResponse } from '@nestjs/swagger';
 
 @Controller('upload')
 @UseGuards(AuthGuard)
@@ -36,6 +37,10 @@ export class UploadController {
     },
   })
   @UseInterceptors(FileInterceptor('file'))
+  @ApiOperation({ summary: 'File upload' })
+  @ApiResponse({ status: 201, description: 'File uploaded succesfully.' })
+  @ApiResponse({ status: 400, description: 'File upload failed.' })
+  @ApiParam({ name: 'file', type: 'file', description: 'file to upload' })
   async upload(
     @UploadedFile(
       new ParseFilePipe({
