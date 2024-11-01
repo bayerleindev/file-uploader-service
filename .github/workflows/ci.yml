@@ -30,10 +30,36 @@ jobs:
         run: docker compose up -d
 
       - name: Run migrations
-        run: npm run migration:run
+        run: | 
+          npm run build
+          npm run migration:run
 
       - name: Run E2E Tests
         run: npm run test:e2e
       
       - name: Check for vulnerabilities
         run: npm audit
+  load-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+
+      - name: Install K6
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y wget
+          wget https://github.com/grafana/k6/releases/download/v0.39.0/k6-v0.39.0-linux-amd64.tar.gz
+          tar -xvf k6-v0.39.0-linux-amd64.tar.gz
+          sudo mv k6-v0.39.0-linux-amd64/k6 /usr/local/bin/k6
+
+      - name: Run K6 Load Test
+        env:
+          BASE_URL: http://localhost:3000
+        run: |
+          node test/load/data/csv_generator.js
+          docker compose up -d
+          sleep 15
+          k6 run test/load/index.js
+          docker-compose down
