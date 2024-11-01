@@ -3,7 +3,7 @@ import { Mutex } from 'async-mutex';
 
 @Injectable()
 export class UploadAgentPool {
-  private maxAgents = 5;
+  private maxAgents = Number(process.env.MAX_AGENTS_NUMBER) || 5;
   private activeAgents = 0;
   private mutex = new Mutex();
 

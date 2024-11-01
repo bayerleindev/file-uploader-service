@@ -1,18 +1,49 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { ResourceController } from './resource.controller';
+import { ResourceService } from './resource.service';
 
 describe('ResourceController', () => {
-  let controller: ResourceController;
+  let resourceController: ResourceController;
+  let resourceService: ResourceService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [ResourceController],
+      providers: [
+        {
+          provide: ResourceService,
+          useValue: {
+            getCPUUsage: jest.fn(),
+            getFreeMemory: jest.fn(),
+          },
+        },
+      ],
     }).compile();
 
-    controller = module.get<ResourceController>(ResourceController);
+    resourceController = module.get<ResourceController>(ResourceController);
+    resourceService = module.get<ResourceService>(ResourceService);
   });
 
-  it('should be defined', () => {
-    expect(controller).toBeDefined();
+  describe('getResourceInfo', () => {
+    it('should return CPU usage and free memory', () => {
+      // Mocking the return values of getCPUUsage and getFreeMemory
+      const mockCPUUsage = 45.5;
+      const mockFreeMemory = 1500000000; // 1.5GB in bytes
+
+      jest.spyOn(resourceService, 'getCPUUsage').mockReturnValue(mockCPUUsage);
+      jest
+        .spyOn(resourceService, 'getFreeMemory')
+        .mockReturnValue(mockFreeMemory);
+
+      const result = resourceController.getResourceInfo();
+
+      expect(result).toEqual({
+        avg_cpu_usage: mockCPUUsage,
+        avg_free_memory: mockFreeMemory,
+      });
+
+      expect(resourceService.getCPUUsage).toHaveBeenCalled();
+      expect(resourceService.getFreeMemory).toHaveBeenCalled();
+    });
   });
 });

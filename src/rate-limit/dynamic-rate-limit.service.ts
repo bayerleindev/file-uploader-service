@@ -1,4 +1,4 @@
-import { ResourceService } from 'src/resource/resource.service';
+import { ResourceService } from '../resource/resource.service';
 
 export class DynamicRateLimit {
   static defaultTTL = 10000;
@@ -7,6 +7,8 @@ export class DynamicRateLimit {
 
   static dynamicTtl() {
     const cpu = DynamicRateLimit.resource.getCPUUsage();
+
+    console.log(cpu);
 
     if (cpu < 20) {
       return DynamicRateLimit.defaultTTL / 2;
@@ -17,6 +19,7 @@ export class DynamicRateLimit {
   }
   static dynamicLimit() {
     const cpu = DynamicRateLimit.resource.getCPUUsage();
+    console.log(cpu);
 
     if (cpu < 20) {
       return DynamicRateLimit.defaultLimit * 2;
