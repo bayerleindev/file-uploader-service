@@ -38,12 +38,12 @@ describe('UploadController', () => {
       providers: [{ provide: UploadService, useValue: uploadServiceMock }],
     })
       .overrideGuard(AuthGuard)
-      .useValue({ canActivate: jest.fn(() => true) }) // Mock the AuthGuard
+      .useValue({ canActivate: jest.fn(() => true) })
       .compile();
 
     controller = module.get<UploadController>(UploadController);
     uploadService = module.get<UploadService>(UploadService);
-    jest.spyOn(uploadService, 'upload'); // Cria um mock para uploadService.upload
+    jest.spyOn(uploadService, 'upload');
   });
 
   afterEach(() => {

@@ -26,9 +26,8 @@ describe('ResourceController', () => {
 
   describe('getResourceInfo', () => {
     it('should return CPU usage and free memory', () => {
-      // Mocking the return values of getCPUUsage and getFreeMemory
       const mockCPUUsage = 45.5;
-      const mockFreeMemory = 1500000000; // 1.5GB in bytes
+      const mockFreeMemory = 1500000000;
 
       jest.spyOn(resourceService, 'getCPUUsage').mockReturnValue(mockCPUUsage);
       jest
