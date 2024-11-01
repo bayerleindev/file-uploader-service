@@ -1,0 +1,38 @@
+name: CI Pipeline
+
+on: 
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run Unit Tests
+        run: npm run test
+
+      - name: Set up Docker Compose
+        run: docker compose up -d
+          
+
+      - name: Run E2E Tests
+        run: npm run test:e2e
+
+      - name: Tear down Docker Compose
+        if: always()
+        run: docker compose down
