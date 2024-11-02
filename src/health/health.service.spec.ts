@@ -1,4 +1,4 @@
-import { ResourceService } from './resource.service';
+import { ResourceService } from './health.service';
 import * as os from 'os';
 
 jest.mock('os');

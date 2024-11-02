@@ -1,6 +1,6 @@
 import { Controller, Get } from '@nestjs/common';
 import { SkipThrottle } from '@nestjs/throttler';
-import { ResourceService } from './resource.service';
+import { ResourceService } from './health.service';
 
 @Controller('resources')
 export class ResourceController {
