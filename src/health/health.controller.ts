@@ -2,7 +2,7 @@ import { Controller, Get } from '@nestjs/common';
 import { SkipThrottle } from '@nestjs/throttler';
 import { ResourceService } from './health.service';
 
-@Controller('resources')
+@Controller('health')
 export class ResourceController {
   constructor(private resourceService: ResourceService) {}
 

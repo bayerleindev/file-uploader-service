@@ -20,10 +20,11 @@ import { DynamicRateLimit } from '../rate-limit/dynamic-rate-limit.service';
 import { UploadService } from './upload.service';
 import { Request } from 'express';
 import { NoAgentsAvailableError } from './errors';
-import { ApiOperation, ApiParam, ApiResponse } from '@nestjs/swagger';
+import { ApiBasicAuth, ApiOperation, ApiParam, ApiResponse } from '@nestjs/swagger';
 
 @Controller('upload')
 @UseGuards(AuthGuard)
+@ApiBasicAuth()
 export class UploadController {
   private readonly logger = new Logger(UploadController.name);
 
@@ -40,6 +41,7 @@ export class UploadController {
   @ApiOperation({ summary: 'File upload' })
   @ApiResponse({ status: 201, description: 'File uploaded succesfully.' })
   @ApiResponse({ status: 400, description: 'File upload failed.' })
+  @ApiResponse({ status: 401, description: 'Unauthorized.' })
   @ApiParam({ name: 'file', type: 'file', description: 'file to upload' })
   async upload(
     @UploadedFile(

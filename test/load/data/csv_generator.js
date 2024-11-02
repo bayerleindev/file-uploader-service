@@ -53,8 +53,8 @@ const csvWriter = createObjectCsvWriter({
 csvWriter
   .writeRecords(data)
   .then(() => {
-    console.log('Arquivo CSV gerado com sucesso no diretório:', __dirname);
+    console.log('CSV generated in:', __dirname);
   })
   .catch((error) => {
-    console.error('Erro ao gerar o arquivo CSV:', error);
+    console.error('Error generating csv:', error);
   });

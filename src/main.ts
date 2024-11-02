@@ -12,7 +12,7 @@ async function bootstrap() {
     .setTitle('File Uploader')
     .setDescription('File uploader service')
     .setVersion('1.0')
-    .addTag('files')
+    .addBasicAuth()
     .build();
   const documentFactory = () => SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, documentFactory);
