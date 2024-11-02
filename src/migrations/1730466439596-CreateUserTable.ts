@@ -2,7 +2,6 @@ import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
 export class CreateUserTable1730466439596 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
-    // Create the users table
     await queryRunner.createTable(
       new Table({
         name: 'users',
@@ -11,18 +10,18 @@ export class CreateUserTable1730466439596 implements MigrationInterface {
             name: 'id',
             type: 'int',
             isPrimary: true,
-            isGenerated: true, // Auto-increment
+            isGenerated: true,
           },
           {
             name: 'username',
             type: 'varchar',
-            isUnique: true, // Unique username
+            isUnique: true,
             length: '50',
           },
           {
             name: 'password',
             type: 'varchar',
-            length: '100', // Store hashed passwords
+            length: '100',
           },
           {
             name: 'created_at',
@@ -41,7 +40,6 @@ export class CreateUserTable1730466439596 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    // Drop the users table
     await queryRunner.dropTable('users');
   }
 }

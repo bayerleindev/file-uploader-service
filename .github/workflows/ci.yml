@@ -10,6 +10,8 @@ on:
 
 jobs:
   test:
+    env:
+      DATABASE_HOST: localhost
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
@@ -21,21 +23,46 @@ jobs:
           node-version: '16'
 
       - name: Install dependencies
-        run: npm install
+        run: |
+          npm install
 
       - name: Run Unit Tests
-        run: npm run test
+        run: npm run test:cov
 
       - name: Set up Docker Compose
-        run: docker compose up -d
+        run: docker compose up postgres app -d
 
       - name: Run migrations
-        run: npm run migration:run
-          
+        run: | 
+          npm run build
+          npm run migration:run
 
       - name: Run E2E Tests
         run: npm run test:e2e
+      
+      - name: Check for vulnerabilities
+        run: npm audit
 
-      - name: Tear down Docker Compose
-        if: always()
-        run: docker compose down
+  load-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Generate csv file
+        run: node test/load/data/csv_generator.js
+
+      - name: Set up Docker Compose
+        run: |
+          docker compose up -d postgres app
+          sleep 10s
+          docker compose up k6

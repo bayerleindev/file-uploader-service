@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { APP_GUARD } from '@nestjs/core';
 import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import { UploadModule } from './upload/upload.module';
-import { ResourceModule } from './resource/resource.module';
+import { ResourceModule } from './health/health.module';
 import { RateLimitModule } from './rate-limit/rate-limit.module';
 import { AuthModule } from './auth/auth.module';
 import { MiddlewaresModule } from './middlewares/middlewares.module';

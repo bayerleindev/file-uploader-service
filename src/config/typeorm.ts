@@ -22,4 +22,3 @@ export default registerAs('typeorm', () => typeormConfig);
 export const connectionSource = new DataSource(
   typeormConfig as DataSourceOptions,
 );
-// export default () => typeormConfig

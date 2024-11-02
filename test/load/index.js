@@ -37,7 +37,7 @@ export const options = {
 export default function () {
   if (registerUser) {
     users.forEach((u) => {
-      http.post("http://localhost:3000/users", {
+      http.post("http://app:3000/users", {
         username: u.user,
         password: u.pass,
       });
@@ -57,7 +57,7 @@ export default function () {
     },
   };
 
-  const url = "http://localhost:3000/upload";
+  const url = "http://app:3000/upload";
 
   const payload = {
     file: http.file(fileData, "large_file.csv", "text/csv"),
