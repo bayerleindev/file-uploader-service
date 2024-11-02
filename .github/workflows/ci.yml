@@ -42,6 +42,7 @@ jobs:
       
       - name: Check for vulnerabilities
         run: npm audit
+
   load-test:
     runs-on: ubuntu-latest
 
@@ -61,8 +62,7 @@ jobs:
         run: node test/load/data/csv_generator.js
 
       - name: Set up Docker Compose
-        run: docker compose up -d
-      
-      - name: Sleep for 3 minutes
-        run: sleep 180s
-        shell: bash
+        run: |
+          docker compose up
+          sleep 180s
+          docker compose down
