@@ -1,4 +1,12 @@
 services:
+  app:
+    build: .
+    ports:
+      - "3000:3000" 
+    environment:
+      NODE_ENV: production 
+    command: npm run start:prod 
+
   postgres:
     image: postgres
     environment:
@@ -8,3 +16,12 @@ services:
       - "5432:5432"
     volumes:
       - ./create-db.sql:/docker-entrypoint-initdb.d/create-db.sql
+  
+  k6:
+    image: grafana/k6:latest
+    ports:
+      - "6565:6565"
+    command: >
+      run /scripts/index.js
+    volumes:
+      - ./test/load/:/scripts

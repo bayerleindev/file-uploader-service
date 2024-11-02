@@ -1,4 +1,4 @@
-import { ResourceService } from '../resource/resource.service';
+import { ResourceService } from '../health/health.service';
 
 export class DynamicRateLimit {
   static defaultTTL = 10000;

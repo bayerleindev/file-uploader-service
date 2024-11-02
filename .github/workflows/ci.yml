@@ -27,7 +27,7 @@ jobs:
         run: npm run test:cov
 
       - name: Set up Docker Compose
-        run: docker compose up -d
+        run: docker compose up postgres app -d
 
       - name: Run migrations
         run: | 
@@ -39,35 +39,23 @@ jobs:
       
       - name: Check for vulnerabilities
         run: npm audit
-  # load-test:
-  #   runs-on: ubuntu-latest
+  load-test:
+    runs-on: ubuntu-latest
 
-  #   steps:
-  #     - name: Check out code
-  #       uses: actions/checkout@v2
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
 
-  #     - name: Set up Node.js
-  #       uses: actions/setup-node@v2
-  #       with:
-  #         node-version: '16'
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'
 
-  #     - name: Install dependencies
-  #       run: npm install
+      - name: Install dependencies
+        run: npm install
 
-  #     - name: Install K6
-  #       run: |
-  #         sudo apt-get update
-  #         sudo apt-get install -y wget
-  #         wget https://github.com/grafana/k6/releases/download/v0.39.0/k6-v0.39.0-linux-amd64.tar.gz
-  #         tar -xvf k6-v0.39.0-linux-amd64.tar.gz
-  #         sudo mv k6-v0.39.0-linux-amd64/k6 /usr/local/bin/k6
+      - name: Generate csv file
+        run: node test/load/data/csv_generator.js
 
-  #     - name: Run K6 Load Test
-  #       env:
-  #         BASE_URL: http://localhost:3000
-  #       run: |
-  #         node test/load/data/csv_generator.js
-  #         docker compose up -d
-  #         sleep 15
-  #         k6 run test/load/index.js
-  #         docker-compose down
+      - name: Set up Docker Compose
+        run: docker compose up -d
