@@ -64,10 +64,6 @@ jobs:
       - name: Set up Docker postgres
         run: |
           docker compose up -d postgres app
-          npm run build
-          npm run migration:run
-          sleep 3s
-          docker compose up k6
 
       - name: Run migrations
         env: 
