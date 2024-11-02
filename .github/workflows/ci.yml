@@ -10,6 +10,8 @@ on:
 
 jobs:
   test:
+    env:
+      DATABASE_HOST: localhost
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
@@ -23,7 +25,6 @@ jobs:
       - name: Install dependencies
         run: |
           npm install
-          export DATABASE_HOST=localhost
 
       - name: Run Unit Tests
         run: npm run test:cov
@@ -60,4 +61,8 @@ jobs:
         run: node test/load/data/csv_generator.js
 
       - name: Set up Docker Compose
-        run: docker compose up
+        run: docker compose up -d
+      
+      - name: Sleep for 3 minutes
+        run: sleep 180s
+        shell: bash
