@@ -11,15 +11,14 @@ export class DynamicRateLimit {
     console.log(cpu);
 
     if (cpu < 20) {
-      return DynamicRateLimit.defaultTTL / 2;
+      return Math.max(Math.floor(DynamicRateLimit.defaultTTL / 2), this.defaultLimit);
     } else if (cpu > 80) {
-      return DynamicRateLimit.defaultTTL * 2;
+      return Math.max(DynamicRateLimit.defaultTTL * 2, this.defaultLimit);
     }
     return DynamicRateLimit.defaultTTL;
   }
   static dynamicLimit() {
     const cpu = DynamicRateLimit.resource.getCPUUsage();
-    console.log(cpu);
 
     if (cpu < 20) {
       return DynamicRateLimit.defaultLimit * 2;

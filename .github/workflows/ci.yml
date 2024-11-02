@@ -64,5 +64,8 @@ jobs:
       - name: Set up Docker Compose
         run: |
           docker compose up -d postgres app
-          sleep 10s
+          sleep 3s
+          npm run build
+          npm run migration:run
+          sleep 3s
           docker compose up k6
