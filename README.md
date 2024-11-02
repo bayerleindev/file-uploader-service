@@ -91,7 +91,7 @@ This API uses **Basic Auth** for authentication. To access protected endpoints, 
 
 #### Request Example
 
-```json
+```
 POST /users
 Content-Type: application/json
 
