@@ -140,7 +140,7 @@ Status: 201 Created
 This system dynamically adjusts its rate limits based on available system resources. The following behavior is expected under load:
 
 - **Dynamic Rate-Limiting**: The rate limit adjusts in response to the machine's available resources. When more CPU and memory are available, the server can handle more requests, ensuring optimal performance. During lower resource availability, the rate limit reduces to prevent overload and maintain stability.
-- **Scalability**: The API remains stable with up to 5 concurrent requests by default, but with sufficient system resources, it can scale to accommodate more requests while maintaining low latency.
+- **Scalability**: The API remains stable with up to 5 concurrent requests by default.
 - **Recovery**: In high-load scenarios, the API reclaims idle connections and redistributes resources to manage the load effectively.
 
 These adaptive rate-limiting and resource management strategies help ensure reliable performance under varying load conditions.
