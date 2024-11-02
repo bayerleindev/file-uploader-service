@@ -20,7 +20,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '16'
+          node-version: '20'
 
       - name: Install dependencies
         run: |
@@ -53,7 +53,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '16'
+          node-version: '20'
 
       - name: Install dependencies
         run: npm install
@@ -61,11 +61,23 @@ jobs:
       - name: Generate csv file
         run: node test/load/data/csv_generator.js
 
-      - name: Set up Docker Compose
+      - name: Set up Docker postgres
         run: |
           docker compose up -d postgres app
-          sleep 3s
           npm run build
           npm run migration:run
           sleep 3s
+          docker compose up k6
+
+      - name: Run migrations
+        env: 
+          DATABASE_HOST: localhost
+        run: |
+          npm run build
+          npm run migration:run
+      
+      - name: Set up Docker k6
+        env: 
+          DATABASE_HOST: postgres
+        run: |
           docker compose up k6
