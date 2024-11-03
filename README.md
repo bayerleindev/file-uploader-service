@@ -163,4 +163,4 @@ These adaptive rate-limiting and resource management strategies help ensure reli
 - DATABASE_PORT: Postgres port 
 - DATABASE_USERNAME: Postgres username
 - DATABASE_PASSWORD: Postgres password
-- DATABASE_NAME: Postgres name
+- DATABASE_NAME: Postgres database name
