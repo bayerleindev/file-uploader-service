@@ -13,6 +13,13 @@ export class ResourceService {
     return 100 - idlePercentage;
   }
 
+  getUsedMemory(): number {
+    const totalMemory = os.totalmem();
+    const freeMemory = os.freemem();
+    const usedMemory = totalMemory - freeMemory;
+    return (usedMemory / totalMemory) * 100;
+  }
+
   getFreeMemory(): number {
     return os.freemem();
   }

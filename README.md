@@ -91,7 +91,7 @@ This API uses **Basic Auth** for authentication. To access protected endpoints, 
 
 #### Request Example
 
-```json
+```
 POST /users
 Content-Type: application/json
 
@@ -140,9 +140,22 @@ Status: 201 Created
 This system dynamically adjusts its rate limits based on available system resources. The following behavior is expected under load:
 
 - **Dynamic Rate-Limiting**: The rate limit adjusts in response to the machine's available resources. When more CPU and memory are available, the server can handle more requests, ensuring optimal performance. During lower resource availability, the rate limit reduces to prevent overload and maintain stability.
-- **Scalability**: The API remains stable with up to 5 concurrent requests by default, but with sufficient system resources, it can scale to accommodate more requests while maintaining low latency.
+- **Scalability**: The API remains stable with up to 5 concurrent requests by default.
 - **Recovery**: In high-load scenarios, the API reclaims idle connections and redistributes resources to manage the load effectively.
 
 These adaptive rate-limiting and resource management strategies help ensure reliable performance under varying load conditions.
 
+### TTL
+- Low CPU (20%) and Low Memory (30%): TTL might reduce to around 6-7 seconds.
+- High CPU (85%) and Medium Memory (60%): TTL could increase to around 15-20 seconds.
+- Medium CPU and Memory (both around 50%): TTL would remain near the default (10 seconds).
+
+### Request/sec allowed
+- Low CPU (0-25%) and Low Memory (0-25%): Requests Allowed: 20-40 requests per second
+- Low CPU (0-25%) and Medium Memory (26-50%): Requests Allowed: 15-35 requests per second
+- Medium CPU (26-50%) and Low Memory (0-25%): Requests Allowed: 15-35 requests per second
+- Medium CPU (26-50%) and Medium Memory (26-50%): Requests Allowed: 10-30 requests per second
+- High CPU (51-75%) and Medium Memory (26-50%): Requests Allowed: 8-20 requests per second
+- High CPU (51-75%) and High Memory (51-75%): Requests Allowed: 5-15 requests per second
+- Very High CPU (76-100%) and Very High Memory (76-100%): Requests Allowed: 1-5 requests per second
 

@@ -8,7 +8,9 @@ export class UsersController {
   constructor(private userService: UsersService) {}
 
   @Post()
-  async createUser(@Body() user: { username: string; password: string }) {
+  async createUser(
+    @Body() user: { username: string; password: string },
+  ): Promise<{ id: number }> {
     return await this.userService.create(user);
   }
 }

@@ -34,10 +34,10 @@ export class UploadService {
       await this.onUploadError(file, username, error as Error);
       throw new UploadServiceError((error as Error).message);
     } finally {
-      const endTime = performance.now(); // End timing
+      const endTime = performance.now();
       this.logger.log({
         message: 'Upload completed',
-        duration: `${(endTime - startTime).toFixed(2)} ms`, // Log the duration
+        duration: `${(endTime - startTime).toFixed(2)} ms`,
         fileName: file.originalname,
         username,
       });
