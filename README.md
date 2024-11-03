@@ -22,6 +22,10 @@ $ npm install
 ## Running the app
 
 ```bash
+# before all
+$ docker compose up -d postgres
+$ npm run migration:run
+
 # development
 $ npm run start
 
@@ -29,6 +33,7 @@ $ npm run start
 $ npm run start:dev
 
 # production mode
+$ npm run build
 $ npm run start:prod
 ```
 
@@ -39,6 +44,8 @@ $ npm run start:prod
 $ npm run test
 
 # e2e tests
+$ docker compose up -d postgres
+$ npm run migration:run
 $ npm run test:e2e
 
 # test coverage
@@ -47,7 +54,7 @@ $ npm run test:cov
 
 ## Docs
 ```
-All docs are accessible through http://localhost:3000/api
+All documentation is accessible through resource /api.
 ```
 
 # API Documentation
@@ -55,15 +62,12 @@ All docs are accessible through http://localhost:3000/api
 This document provides an overview of the main API endpoints, usage guidelines, expected behavior under load, and error handling conventions.
 
 ---
-
 ## Table of Contents
 - [Introduction](#introduction)
 - [Endpoints](#endpoints)
   - [Authentication](#authentication)
   - [File Upload](#file-upload)
 - [Expected Load Behavior](#expected-load-behavior)
-- [Error Handling](#error-handling)
-
 ---
 
 ## Introduction
@@ -97,8 +101,7 @@ Successful Response Example
 ```
 Status: 201 Created
 {
-  "message": "User successfully created",
-  "userId": "unique_user_id"
+  "id": "unique_user_id"
 }
 ```
 
