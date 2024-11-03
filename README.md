@@ -156,11 +156,11 @@ These adaptive rate-limiting and resource management strategies help ensure reli
 - Very High CPU (76-100%) and Very High Memory (76-100%): Requests Allowed: 1-5 requests per second
 
 
-## Environmet variables
+## Environment variables
 - MAX_AGENTS_NUMBER: Amount of parallel uploads
-- MAX_FILE_SIZE_MB: Max file size allowed to be uploads
+- MAX_FILE_SIZE_MB: Max file size allowed to be uploaded
 - DATABASE_HOST: Postgres host
 - DATABASE_PORT: Postgres port 
 - DATABASE_USERNAME: Postgres username
 - DATABASE_PASSWORD: Postgres password
-- DATABASE_NAME: Postgres name
+- DATABASE_NAME: Postgres database name
