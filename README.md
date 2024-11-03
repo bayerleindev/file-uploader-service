@@ -24,6 +24,7 @@ $ npm install
 ```bash
 # before all
 $ docker compose up -d postgres
+$ npm run build
 $ npm run migration:run
 
 # development
@@ -33,7 +34,6 @@ $ npm run start
 $ npm run start:dev
 
 # production mode
-$ npm run build
 $ npm run start:prod
 ```
 
@@ -45,6 +45,7 @@ $ npm run test
 
 # e2e tests
 $ docker compose up -d postgres
+$ npm run build
 $ npm run migration:run
 $ npm run test:e2e
 
