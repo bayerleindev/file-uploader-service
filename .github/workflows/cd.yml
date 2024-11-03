@@ -30,7 +30,7 @@ jobs:
 
       - name: Terraform Apply
         run: |
-          ehco "run terraform apply -auto-approve"
+          echo "run terraform apply -auto-approve"
 
       - name: Install dependencies
         run: echo "npm install"
@@ -45,7 +45,7 @@ jobs:
         run: echo "run docker hub login"
 
       - name: Push Docker image
-        run: ehco "run docker push docker_username/file_uploader_service:latest"
+        run: echo "run docker push docker_username/file_uploader_service:latest"
 
       - name: Deploy to Server
         run: |
