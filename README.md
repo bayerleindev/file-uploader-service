@@ -158,7 +158,7 @@ These adaptive rate-limiting and resource management strategies help ensure reli
 
 ## Environment variables
 - MAX_AGENTS_NUMBER: Amount of parallel uploads
-- MAX_FILE_SIZE_MB: Max file size allowed to be uploads
+- MAX_FILE_SIZE_MB: Max file size allowed to be uploaded
 - DATABASE_HOST: Postgres host
 - DATABASE_PORT: Postgres port 
 - DATABASE_USERNAME: Postgres username
