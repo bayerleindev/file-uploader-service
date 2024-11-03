@@ -2,10 +2,7 @@ import {
   Injectable,
   CallHandler,
   ExecutionContext,
-  HttpException,
-  HttpStatus,
   NestInterceptor,
-  BadRequestException,
   InternalServerErrorException,
 } from '@nestjs/common';
 import { Observable, throwError, timer } from 'rxjs';
@@ -37,13 +34,11 @@ export class RetryWithBackoffInterceptor implements NestInterceptor {
           if (!(error instanceof InternalServerErrorException)) {
             throw error; // Stop retrying immediately
           }
-          return timer(baseDelay * Math.pow(2, attempt))
+          return timer(baseDelay * Math.pow(2, attempt));
         },
       }),
       catchError((error) => {
-        return throwError(
-          () => error
-        )
+        return throwError(() => error);
       }),
     );
   }
