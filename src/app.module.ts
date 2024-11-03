@@ -10,6 +10,7 @@ import { LoggerModule } from 'nestjs-pino';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersModule } from './users/users.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { InterceptorsModule } from './interceptors/interceptors.module';
 import typeormConfig from './config/typeorm';
 
 @Module({
@@ -40,6 +41,7 @@ import typeormConfig from './config/typeorm';
         configService.get('typeorm'),
     }),
     UsersModule,
+    InterceptorsModule,
   ],
   providers: [
     {
