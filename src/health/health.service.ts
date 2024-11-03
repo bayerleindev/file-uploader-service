@@ -15,7 +15,7 @@ export class ResourceService {
 
   getUsedMemory(): number {
     const totalMemory = os.totalmem();
-    const freeMemory = os.freemem();  
+    const freeMemory = os.freemem();
     const usedMemory = totalMemory - freeMemory;
     return (usedMemory / totalMemory) * 100;
   }

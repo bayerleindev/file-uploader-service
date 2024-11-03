@@ -20,7 +20,12 @@ import { DynamicRateLimit } from '../rate-limit/dynamic-rate-limit.service';
 import { UploadService } from './upload.service';
 import { Request } from 'express';
 import { NoAgentsAvailableError } from './errors';
-import { ApiBasicAuth, ApiOperation, ApiParam, ApiResponse } from '@nestjs/swagger';
+import {
+  ApiBasicAuth,
+  ApiOperation,
+  ApiParam,
+  ApiResponse,
+} from '@nestjs/swagger';
 
 @Controller('upload')
 @UseGuards(AuthGuard)

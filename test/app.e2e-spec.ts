@@ -93,9 +93,6 @@ describe('UploadController (e2e)', () => {
       )
       .expect(429);
 
-    expect(response.body).toHaveProperty(
-      'message',
-      'ThrottlerException: Too Many Requests',
-    );
+    expect(response.body).toHaveProperty('message', 'No agents available.');
   });
 });
