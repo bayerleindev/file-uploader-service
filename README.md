@@ -165,3 +165,5 @@ These adaptive rate-limiting and resource management strategies help ensure reli
 - DATABASE_USERNAME: Postgres username
 - DATABASE_PASSWORD: Postgres password
 - DATABASE_NAME: Postgres database name
+- RETRY_AMOUNT: Amount attempts of retry - default 3
+- RETRY_DELAY_IN_MS: Base delay between attempts - default 2000 (2 seconds)
