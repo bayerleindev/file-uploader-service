@@ -1,0 +1,52 @@
+name: Deploy Template
+
+on:
+  push:
+    branches:
+      - main 
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '20'
+      
+      - name: Install Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: "1.1.7"
+
+      - name: Terraform Init
+        run: |
+          echo "run terraform init"
+          
+
+      - name: Terraform Apply
+        run: |
+          ehco "run terraform apply -auto-approve"
+
+      - name: Install dependencies
+        run: echo "npm install"
+
+      - name: Build the app
+        run: echo "npm run build"
+
+      - name: Build Docker image
+        run: echo "docker build . -t docker_username/file_uploader_service:latest"
+
+      - name: Log in to Docker Hub
+        run: echo "run docker hub login"
+
+      - name: Push Docker image
+        run: ehco "run docker push docker_username/file_uploader_service:latest"
+
+      - name: Deploy to Server
+        run: |
+          echo "run deploy"
