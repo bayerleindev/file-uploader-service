@@ -12,6 +12,7 @@ import {
   ParseFilePipe,
   MaxFileSizeValidator,
   FileTypeValidator,
+  InternalServerErrorException,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { Throttle } from '@nestjs/throttler';
@@ -26,10 +27,13 @@ import {
   ApiParam,
   ApiResponse,
 } from '@nestjs/swagger';
+import { RetryWithBackoffInterceptor } from '../interceptors/retry-with-backoff/retry-with-backoff.interceptor';
+import { RetryWithBackoff } from '../interceptors/retry-with-backoff/retry-with-backoff.decorator';
 
 @Controller('upload')
 @UseGuards(AuthGuard)
 @ApiBasicAuth()
+@UseInterceptors(RetryWithBackoffInterceptor)
 export class UploadController {
   private readonly logger = new Logger(UploadController.name);
 
@@ -42,6 +46,7 @@ export class UploadController {
       limit: () => DynamicRateLimit.dynamicLimit(),
     },
   })
+  @RetryWithBackoff(3, 2000) // 3 tentativas, 1 segundo de delay inicial
   @UseInterceptors(FileInterceptor('file'))
   @ApiOperation({ summary: 'File upload' })
   @ApiResponse({ status: 201, description: 'File uploaded succesfully.' })
@@ -79,6 +84,7 @@ export class UploadController {
     } catch (error) {
       if (error instanceof NoAgentsAvailableError)
         throw new HttpException(error.message, HttpStatus.TOO_MANY_REQUESTS);
+      else throw new InternalServerErrorException();
     }
   }
 }
