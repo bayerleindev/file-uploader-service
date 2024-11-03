@@ -46,7 +46,10 @@ export class UploadController {
       limit: () => DynamicRateLimit.dynamicLimit(),
     },
   })
-  @RetryWithBackoff(3, 2000)
+  @RetryWithBackoff(
+    Number(process.env.RETRY_AMOUNT || 3),
+    Number(process.env.RETRY_DELAY_IN_MS || 2000),
+  )
   @UseInterceptors(FileInterceptor('file'))
   @ApiOperation({ summary: 'File upload' })
   @ApiResponse({ status: 201, description: 'File uploaded succesfully.' })
